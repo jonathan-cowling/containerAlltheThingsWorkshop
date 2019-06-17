@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server1
+  labels:
+    app: server1
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30000
+  selector:
+    app: server1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servers1
+  labels:
+    app: server1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: server1
+  template:
+    metadata:
+      labels:
+        app: server1
+    spec:
+      containers:
+      - name: server1
+        image: container-all-the-things_server1:0.0.1-SNAPSHOT
+        ports:
+        - containerPort: 8080
