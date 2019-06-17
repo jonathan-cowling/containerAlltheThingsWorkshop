@@ -1,0 +1,7 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+rootProject.name = "container-all-the-things"
+include(":server1", ":server2")
